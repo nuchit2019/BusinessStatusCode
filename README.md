@@ -1,10 +1,8 @@
-# API Design Best Practices Guide
-## HTTP Status Code & Business Status Code
+# API Design HTTP Status Code & Business Status Code
 
-> **Version 1.0 | March 2026**  
-> Reference: [BusinessStatusCode on GitHub](https://github.com/nuchit2019/BusinessStatusCode/blob/main/README.md)
+> **Version 1.0 | March 2026**
 
----
+#
 
 ## สารบัญ
 
@@ -22,7 +20,7 @@
 12. [Best Practices Summary](#12-best-practices-summary)
 13. [Implementation Checklist](#13-implementation-checklist)
 
----
+#
 
 ## 1. แนวคิดและหลักการ (Core Concepts)
 
@@ -77,7 +75,7 @@ HTTP Response เป็น `404 Not Found` แต่ใน Body ระบุ `bu
 }
 ```
 
----
+#
 
 ## 2. โครงสร้างโปรเจกต์ (Project Structure)
 
@@ -112,7 +110,7 @@ Factories/
 └── ApiResponseFactory.cs           // Helper สร้าง ApiResponse
 ```
 
----
+#
 
 ## 3. Business Status Code Design
 
@@ -151,7 +149,7 @@ public enum BusinessStatusCode
 - `3xxx` — External/Integration errors (ปัญหาจากภายนอก)
 - `5xxx` — System-level unhandled errors
 
----
+#
 
 ## 4. ApiResponse\<T\> Model
 
@@ -189,7 +187,7 @@ public sealed class ApiResponse<T>
 > **จุดสำคัญ:** `StatusCode` ใน Body = Business Status Code (ไม่ใช่ HTTP Status Code)  
 > `Errors` field รองรับ Validation detail แบบ structured ได้
 
----
+#
 
 ## 5. Exception Hierarchy
 
@@ -359,7 +357,7 @@ public sealed class IntegrationException : AppException
 }
 ```
 
----
+#
 
 ## 6. Error Catalog (Domain-based)
 
@@ -512,7 +510,7 @@ public static class OrderErrors
 }
 ```
 
----
+#
 
 ## 7. ApiResponseFactory
 
@@ -560,7 +558,7 @@ public static class ApiResponseFactory
 }
 ```
 
----
+#
 
 ## 8. Exception Middleware
 
@@ -670,7 +668,7 @@ app.MapControllers();
 app.Run();
 ```
 
----
+#
 
 ## 9. ตัวอย่างการใช้งาน (Usage Examples)
 
@@ -756,7 +754,7 @@ public async Task<IActionResult> UpdatePremium(int id, UpdatePremiumDto dto)
 }
 ```
 
----
+#
 
 ## 10. ตัวอย่าง API Response
 
@@ -865,7 +863,7 @@ public async Task<IActionResult> UpdatePremium(int id, UpdatePremiumDto dto)
 }
 ```
 
----
+#
 
 ## 11. HTTP vs Business Status Code Mapping
 
@@ -885,7 +883,7 @@ public async Task<IActionResult> UpdatePremium(int id, UpdatePremiumDto dto)
 | Integration Error | `502` | `3002` | System integration error |
 | Unexpected Error | `500` | `5000` | Unhandled system exception |
 
----
+#
 
 ## 12. Best Practices Summary
 
@@ -910,35 +908,33 @@ public async Task<IActionResult> UpdatePremium(int id, UpdatePremiumDto dto)
 - ผูก Swagger Examples ให้เห็น Standard Response Body
 - สร้าง Error Code Registry Document สำหรับ API Consumer
 
----
+#
 
 ## 13. Implementation Checklist
 
 ```
-Phase 1 — Foundation
+1 — Foundation
   ☐  สร้างโฟลเดอร์ตาม Structure ที่กำหนด
   ☐  สร้าง BusinessStatusCode enum
   ☐  สร้าง ApiResponse<T> Model
   ☐  สร้าง AppException (abstract base)
   ☐  สร้าง Custom Exceptions ทั้ง 9 ตัว
 
-Phase 2 — Error Catalog
+2 — Error Catalog
   ☐  สร้าง ErrorDefinition และ ErrorCatalog
   ☐  สร้าง CommonErrors
   ☐  สร้าง Domain-specific Errors (Premium, Policy, Order)
 
-Phase 3 — Infrastructure
+3 — Infrastructure
   ☐  สร้าง ApiResponseFactory
   ☐  สร้าง ExceptionMiddleware
   ☐  Register Middleware ใน Program.cs
 
-Phase 4 — Migration & Testing
+4 — Migration & Testing
   ☐  แก้ Service Layer ให้ throw Custom Exceptions
   ☐  แก้ Controller ให้ return Success เท่านั้น
   ☐  เขียน Unit Test สำหรับ Exception Handling
   ☐  ทดสอบทุก Error Scenario
 ```
-
----
-
-*— End of Document —*
+#
+ 
