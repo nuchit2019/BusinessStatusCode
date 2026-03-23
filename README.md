@@ -778,6 +778,24 @@ public async Task<IActionResult> UpdatePremium(int id, UpdatePremiumDto dto)
 }
 ```
 
+### ✅ Success No Data — HTTP 200
+
+```json
+// HTTP/1.1 200 OK
+{
+  "statusCode":         200,
+  "businessStatusCode": 1001,
+  "success":            true,
+  "message":            "No campaign found",
+  "data": {
+    "id":       101,
+    "policyNo": "PL-2026-0001",
+    "status":   "Active"
+  },
+  "errors": null
+}
+```
+
 ### ❌ Not Found — HTTP 404
 
 ```json
