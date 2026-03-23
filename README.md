@@ -45,6 +45,7 @@
 
 ```
 1000  Success
+1001  NoData
 1400  Validation Error
 1401  Unauthorized
 1403  Forbidden
@@ -122,6 +123,7 @@ public enum BusinessStatusCode
 {
     // 1xxx — HTTP-aligned general codes
     Success                = 1000,
+    NoData                 = 1001,
     ValidationError        = 1400,
     Unauthorized           = 1401,
     Forbidden              = 1403,
